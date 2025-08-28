@@ -46,7 +46,7 @@
         {% csrf_token %}
       <div class="mb-3">
         <label for="userName" class="form-label">User Name</label>
-        <input type="userName" class="form-control" id="userName" name="userName" required placeholder="Enter your userName">
+        <input type="userName" class="form-control" id="username" name="username" required placeholder="Enter your userName">
       </div>
 
       <div class="mb-3">
@@ -65,7 +65,7 @@
     </form>
 
     <div class="text-center mt-4">
-      <small>Don't have an account? <a href="{% url 'signupPage' %}" class="text-primary text-decoration-none">Register</a></small>
+      <small>Don't have an account? <a href="{% url 'register_view' %}" class="text-primary text-decoration-none">Register</a></small>
     </div>
   </div>
 
