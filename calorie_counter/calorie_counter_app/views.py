@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login,logout
 from .models import *
+from .forms import *
 
 # Create your views here.
 def register_view(request):
@@ -36,7 +37,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user:
             login(request, user)
-            return redirect('dashboard')
+            return redirect('home')
     return render(request, 'login.html')
 
 def logout_view(request):
@@ -50,5 +51,17 @@ def profile(request):
 
 
 def editProfile(request):
-    
-    return render(request, 'editProfile.html')
+    try:
+        profile_info = UserProfileModel.objects.get(user=request.user)
+    except UserProfileModel.DoesNotExist:
+        profile_info = UserProfileModel(user=request.user)  # Create new profile if needed
+
+    if request.method == 'POST':
+        profile_form = UserProfileForm(request.POST, instance=profile_info)
+        if profile_form.is_valid():
+            profile_form.save()
+            return redirect('profile')
+    else:
+        profile_form = UserProfileForm(instance=profile_info)
+
+    return render(request, 'editProfile.html', {'profile_form': profile_form})

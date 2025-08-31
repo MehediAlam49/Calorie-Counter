@@ -1,11 +1,14 @@
 {% extends 'master.html' %}
 
 {% block body %}
-  <form action="" method="POST">
+  <div class="container">
+    <h2 class="text-center mt-4">Edit profile</h2>
+    <form action="" method="POST">
     {% csrf_token %}
-    
+    {{ profile_form }}
     <div class="d-grid mb-3">
       <button type="submit" class="btn btn-success btn-lg">Update Profile</button>
     </div>
   </form>
+  </div>
 {% endblock %}
